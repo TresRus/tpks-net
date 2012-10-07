@@ -3,5 +3,5 @@ from django.conf.urls import patterns, include, url
 
 
 urlpatterns = patterns('social.views',
-    url(r'^$', 'login'),
+    url(r'^$', 'login_user'),
 )
