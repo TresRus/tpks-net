@@ -1,5 +1,6 @@
 # Django settings for tpks_sys project.
 import dj_database_url
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -10,7 +11,13 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+DATABASES = {
+'default': dj_database_url.config(default='postgres://foo:bar@localhost:5432/db')
+}
+#uncomment next lines adn comment upper lines for usage with heroku
+#DATABASES = {
+#'default': dj_database_url.config(default='postgres://localhost')
+#}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -87,6 +94,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware'
 )
 
 ROOT_URLCONF = 'tpks_sys.urls'
@@ -95,9 +103,7 @@ ROOT_URLCONF = 'tpks_sys.urls'
 WSGI_APPLICATION = 'tpks_sys.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    './templates'
 )
 
 INSTALLED_APPS = (
@@ -108,9 +114,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
     'user_profile_service',
 )
 
