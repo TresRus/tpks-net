@@ -1,7 +1,7 @@
 
 from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login, logout
-from django.template import RequestContext
+from django.template import RequestContext, Context, loader 
 from django.http import  HttpRequest, HttpResponse
 import user_profile_service.views
 import json
@@ -26,7 +26,11 @@ def login_user(request):
                 #if all there is -> give user page with info
                 #if there is no such user -> create him ( this logic is just for test)
                 if resp["status"] == "OK":
-                    return HttpResponse(response, mimetype="application/json")
+                        t = loader.get_template('userPage.html')
+                        c = Context({
+                                    'info': resp,
+                                    })
+                        return HttpResponse(t.render(c))
                 elif resp["status"] == "Fail":
                     if resp["detail"] == "No such user in service":
                         req = HttpRequest()
