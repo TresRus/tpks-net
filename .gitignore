@@ -6,4 +6,5 @@ obj
 TestResults
 .idea
 *.pyc
+.DS_STORE
 venv
